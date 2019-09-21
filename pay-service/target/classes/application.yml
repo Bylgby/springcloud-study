@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: pay-service
+  security:
+    user:
+      name: admin
+      password: admin
+
+server:
+  port: 8081
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:17174/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:17173/eureka/
+    registry-fetch-interval-seconds: 1
+    instance-info-replication-interval-seconds: 1
+    #   是否将自己注册到eureka
+    register-with-eureka: true
+
+ribbon:
+  eager-load:
+    enabled: true
+
+feign:
+  hystrix:
+    enabled: false

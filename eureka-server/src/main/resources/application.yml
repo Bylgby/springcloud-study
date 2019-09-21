@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: admin
+      password: admin
+
+server:
+  port: 17173
+eureka:
+  instance:
+    hostname: localhost
+    #服务20秒没有上报，则视为宕机
+    lease-expiration-duration-in-seconds: 60
+  client:
+    #   是否将自己注册到eureka
+    register-with-eureka: true
+    #  表示是否从Eureka Server获取注册信息
+    fetch-registry: true
+    service-url:
+      #  设置Eureka Server交互的地址
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:17174/eureka/
+  server:
+    #   关闭自我保护模式
+    enableSelfPreservation: true
+    response-cache-update-interval-ms: 100
+    # 每隔多少秒去检查心跳
+    eviction-interval-timer-in-ms: 1000
+
+

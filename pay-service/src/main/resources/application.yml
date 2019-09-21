@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: pay-service
+  security:
+    user:
+      name: admin
+      password: admin
+
+server:
+  port: 8081
+  servlet:
+    context-path: /pay
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:17174/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:17173/eureka/
+    #   表示eureka client间隔多久去拉取服务注册信息，默认为30秒，对于api-gateway，如果要迅速获取服务注册状态，可以缩小该值，比如5秒
+    registry-fetch-interval-seconds: 5
+    instance-info-replication-interval-seconds: 5
+    #   是否将自己注册到eureka
+    register-with-eureka: true
+    #   是否需要去检索搜寻服务
+    fetch-registry: true
+
+ribbon:
+  eager-load:
+    enabled: true
+
+feign:
+  hystrix:
+    enabled: false
