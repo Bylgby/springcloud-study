@@ -1,13 +1,15 @@
-server:
-  port: 8099
-  servlet:
-    context-path: /blog
 spring:
+  security:
+    user:
+      name: admin
+      password: admin
+  application:
+    name: blog
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://106.13.53.40:3306/test?serverTimezone=GMT&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: root
+    password: martinyuyy
   freemarker:
     cache: false
   redis:
@@ -33,6 +35,25 @@ spring:
       # 密码
       password: 7001
 
+server:
+  port: 8099
+  servlet:
+    context-path: /blog
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:17174/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:17173/eureka/
+    #   表示eureka client间隔多久去拉取服务注册信息，默认为30秒，对于api-gateway，如果要迅速获取服务注册状态，可以缩小该值，比如5秒
+    registry-fetch-interval-seconds: 5
+    instance-info-replication-interval-seconds: 5
+    #   是否将自己注册到eureka
+    register-with-eureka: true
+    #   是否需要去检索搜寻服务
+    fetch-registry: true
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
 
@@ -45,4 +66,11 @@ logging:
     org:
       springframework:
         web:
-          client: info`
+          client: info
+ribbon:
+  eager-load:
+    enabled: true
+
+feign:
+  hystrix:
+    enabled: false
