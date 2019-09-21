@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.AddressMapper">
+
+    <select id="getAllAddress" resultType="com.example.pojo.dto.AddressDTO">
+        select province, city
+        from address
+    </select>
+
+
+    <update id="updateAddress">
+        UPDATE
+            address
+        SET
+            area = #{area},
+            location = #{location},
+            address = #{address}
+        WHERE
+            province = #{province}
+        AND
+            city = #{city}
+    </update>
+
+    <select id="getInfosByProvince" resultType="com.example.pojo.dto.AddressDTO">
+        SELECT
+          *
+        FROM
+          address
+        WHERE
+          province LIKE CONCAT('%',#{province},'%')
+    </select>
+
+</mapper>
