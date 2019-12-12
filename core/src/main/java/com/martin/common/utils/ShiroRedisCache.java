@@ -44,7 +44,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
         if (k == null) {
             return null;
         }
-        byte[] bytes = getBytesKey(k);
+        String bytes = getBytesKey(k);
         return (V) redisTemplate.opsForValue().get(bytes);
 
     }
@@ -55,7 +55,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
             return null;
         }
 
-        byte[] bytes = getBytesKey(k);
+        String bytes = getBytesKey(k);
         redisTemplate.opsForValue().set(bytes, v);
         return v;
     }
@@ -65,7 +65,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
         if (k == null) {
             return null;
         }
-        byte[] bytes = getBytesKey(k);
+        String bytes = getBytesKey(k);
         V v = (V) redisTemplate.opsForValue().get(bytes);
         redisTemplate.delete(bytes);
         return v;
@@ -103,12 +103,12 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
         return values;
     }
 
-    private byte[] getBytesKey(K key) {
+    private String getBytesKey(K key) {
         if (key instanceof String) {
             String prekey = this.getPrefix() + key;
-            return prekey.getBytes();
+            return prekey;
         } else {
-            return ObjectUtil.serialize(key);
+            return String.valueOf(key);
         }
     }
 

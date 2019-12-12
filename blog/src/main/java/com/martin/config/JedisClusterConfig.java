@@ -61,7 +61,7 @@ public class JedisClusterConfig {
             nodes.add(new RedisNode(ipPortPair[0].trim(),Integer.valueOf(ipPortPair[1].trim())));
         }
         redisClusterConfiguration.setClusterNodes(nodes);
-        redisClusterConfiguration.setPassword(RedisPassword.of(redisProperties.getPassword()));
+        //redisClusterConfiguration.setPassword(RedisPassword.of(redisProperties.getPassword()));
         return  redisClusterConfiguration;
     }
 

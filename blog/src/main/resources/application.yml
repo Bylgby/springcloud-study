@@ -7,9 +7,9 @@ spring:
     name: blog
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://106.13.53.40:3306/test?serverTimezone=GMT&useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: martinyuyy
+    url: jdbc:mysql://106.13.53.40:3306/solo?serverTimezone=GMT&useUnicode=true&characterEncoding=utf-8
+    username: martin
+    password: Dxx3690.0
   freemarker:
     cache: false
   redis:
