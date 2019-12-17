@@ -52,16 +52,10 @@ eureka:
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
 
-# 日志打印
+#log4j2
 logging:
-  level:
-    com:
-      example:
-        mapper: info
-    org:
-      springframework:
-        web:
-          client: info
+  config: classpath:log4j2.xml
+
 ribbon:
   eager-load:
     enabled: true
