@@ -7,7 +7,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-@MapperScan("com.martin.mapper")
 @EnableCaching
 @EnableEurekaClient
 public class MyBlogApplication {
