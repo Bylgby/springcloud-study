@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -29,14 +30,18 @@ import java.util.List;
 @Configuration
 public class JedisClusterConfig {
 
-    @Autowired
-    private RedisProperties redisProperties;
+    @Bean
+    @ConfigurationProperties(prefix = "spring.redis.cluster")
+    public RedisProperties redisProperties () {
+        RedisProperties redisProperties = new RedisProperties();
+        return redisProperties;
+    }
 
     /**
      * 配置 Redis 连接池信息
      */
     @Bean
-    public JedisPoolConfig getJedisPoolConfig() {
+    public JedisPoolConfig getJedisPoolConfig(RedisProperties redisProperties) {
         JedisPoolConfig jedisPoolConfig =new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(redisProperties.getMaxIdle());
         jedisPoolConfig.setMaxWaitMillis(redisProperties.getMaxWait());
@@ -49,7 +54,7 @@ public class JedisClusterConfig {
      * 配置 Redis Cluster 信息
      */
     @Bean
-    public RedisClusterConfiguration getJedisCluster(){
+    public RedisClusterConfiguration getJedisCluster(RedisProperties redisProperties){
         RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
         redisClusterConfiguration.setMaxRedirects(redisProperties.getMaxRedirects());
 
